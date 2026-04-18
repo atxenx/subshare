@@ -94,7 +94,11 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-    console.log(`🚀 SubShare Server running at http://localhost:${PORT}`);
-    console.log(`📊 Admin Panel: http://localhost:${PORT}/admin`);
-});
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`🚀 SubShare Server running at http://localhost:${PORT}`);
+        console.log(`📊 Admin Panel: http://localhost:${PORT}/admin`);
+    });
+}
+
+module.exports = app;
