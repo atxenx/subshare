@@ -27,21 +27,44 @@ const userOps = {
     },
 
     create: async (name, email, passwordHash) => {
-        // First user logic: check if users exist
-        const { count, error: countError } = await supabase
-            .from('users')
-            .select('*', { count: 'exact', head: true });
-            
-        const role = count === 0 ? 'admin' : 'user';
+        console.log(`[AUTH] Attempting to create user: ${email}`);
+        
+        try {
+            // Check if database connection exists
+            if (!supabase) {
+                throw new Error('Supabase client is not initialized. Check your environment variables.');
+            }
 
-        const { data, error } = await supabase
-            .from('users')
-            .insert([{ name, email, password_hash: passwordHash, role }])
-            .select()
-            .single();
-            
-        if (error) throw error;
-        return { ...data, balance: 0 };
+            // First user logic: check if users exist
+            const { count, error: countError } = await supabase
+                .from('users')
+                .select('*', { count: 'exact', head: true });
+                
+            if (countError) {
+                console.error('[AUTH] Error checking user count:', countError);
+                throw countError;
+            }
+
+            const role = count === 0 ? 'admin' : 'user';
+            console.log(`[AUTH] Assigning role: ${role}`);
+
+            const { data, error } = await supabase
+                .from('users')
+                .insert([{ name, email, password_hash: passwordHash, role }])
+                .select()
+                .single();
+                
+            if (error) {
+                console.error('[AUTH] Supabase Insert Error:', error);
+                throw error;
+            }
+
+            console.log(`[AUTH] User created successfully: ${data.id}`);
+            return { ...data, balance: 0 };
+        } catch (error) {
+            console.error('[AUTH] Fatal error in userOps.create:', error);
+            throw error;
+        }
     },
 
     updateBalance: async (userId, newBalance) => {
