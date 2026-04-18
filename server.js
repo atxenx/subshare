@@ -54,8 +54,12 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Create uploads directory if not exists
 const uploadsDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir, { recursive: true });
+try {
+    if (!fs.existsSync(uploadsDir) && process.env.NODE_ENV !== 'production') {
+        fs.mkdirSync(uploadsDir, { recursive: true });
+    }
+} catch (error) {
+    console.warn('⚠️ Skipping directory creation (Read-only filesystem detected)');
 }
 
 // API Routes
