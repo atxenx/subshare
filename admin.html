@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — SubShare</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <div class="login-brand">
+                <svg width="48" height="48" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#2563eb"/><path d="M8 16C8 11.582 11.582 8 16 8C20.418 8 24 11.582 24 16" stroke="white" stroke-width="2.5" stroke-linecap="round"/><circle cx="16" cy="16" r="4" fill="white"/><path d="M16 20V24" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M12 22H20" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+                <h1>SubShare</h1>
+            </div>
+            <p class="login-subtitle">Admin Dashboard — Sign in to continue</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">
+                        <i data-lucide="mail" class="input-icon"></i>
+                        Email Address
+                    </label>
+                    <input type="email" id="loginEmail" placeholder="admin@subshare.app" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">
+                        <i data-lucide="lock" class="input-icon"></i>
+                        Password
+                    </label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">
+                    <i data-lucide="log-in"></i>
+                    Sign In to Dashboard
+                </button>
+            </form>
+            <div class="login-error" id="loginError"></div>
+            <div class="login-back">
+                <a href="/">← Back to SubShare</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-container hidden" id="adminContainer">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <h2>SubShare</h2>
+                </div>
+                <span class="sidebar-badge">Admin</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-section="users">
+                    <i data-lucide="users"></i>
+                    <span>Members</span>
+                </a>
+                <a href="#" class="nav-item" data-section="products">
+                    <i data-lucide="package"></i>
+                    <span>Packages</span>
+                </a>
+                <a href="#" class="nav-item" data-section="keys">
+                    <i data-lucide="key-round"></i>
+                    <span>Credentials</span>
+                </a>
+                <a href="#" class="nav-item" data-section="orders">
+                    <i data-lucide="shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+                <a href="#" class="nav-item" data-section="transactions">
+                    <i data-lucide="receipt"></i>
+                    <span>Revenue</span>
+                </a>
+                <a href="#" class="nav-item" data-section="topup-history">
+                    <i data-lucide="credit-card"></i>
+                    <span>Payments</span>
+                </a>
+                <a href="#" class="nav-item" data-section="issues">
+                    <i data-lucide="alert-circle"></i>
+                    <span>Issues</span>
+                    <span class="nav-badge" id="issuesBadge" style="display:none;"></span>
+                </a>
+                <a href="#" class="nav-item" data-section="news">
+                    <i data-lucide="newspaper"></i>
+                    <span>Announcements</span>
+                </a>
+                <a href="#" class="nav-item" data-section="activities">
+                    <i data-lucide="activity"></i>
+                    <span>Promotions</span>
+                </a>
+                <a href="#" class="nav-item" data-section="decoration">
+                    <i data-lucide="palette"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="admin-info">
+                    <div class="admin-avatar">
+                        <i data-lucide="user-circle"></i>
+                    </div>
+                    <div class="admin-details">
+                        <span class="admin-name" id="adminName">Admin</span>
+                        <span class="admin-role">Platform Administrator</span>
+                    </div>
+                </div>
+                <div class="sidebar-actions">
+                    <a href="/" class="btn btn-ghost">
+                        <i data-lucide="store"></i>
+                        View Platform
+                    </a>
+                    <button class="btn btn-logout" id="logoutBtn">
+                        <i data-lucide="log-out"></i>
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section class="content-section active" id="section-dashboard">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i data-lucide="layout-dashboard" class="section-icon"></i>
+                        <div>
+                            <h1>Dashboard</h1>
+                            <p>SubShare platform overview and key metrics</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i data-lucide="users"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="statUsers">0</span>
+                            <span class="stat-label">Total Members</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon purple"><i data-lucide="package"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="statProducts">0</span>
+                            <span class="stat-label">Active Plans</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon cyan"><i data-lucide="shopping-bag"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="statOrders">0</span>
+                            <span class="stat-label">Total Subscriptions</span>
+                        </div>
+                    </div>
+                    <div class="stat-card highlight">
+                        <div class="stat-icon orange"><i data-lucide="calendar-check"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="statTodayOrders">0</span>
+                            <span class="stat-label">Subscriptions Today</span>
+                        </div>
+                    </div>
+                    <div class="stat-card success">
+                        <div class="stat-icon green"><i data-lucide="wallet"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="statTopup">$0</span>
+                            <span class="stat-label">Total Credits Added</span>
+                        </div>
+                    </div>
+                    <div class="stat-card warning">
+                        <div class="stat-icon yellow"><i data-lucide="trending-up"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="statSales">$0</span>
+                            <span class="stat-label">Total Revenue</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Users Section -->
+            <section class="content-section" id="section-users">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i data-lucide="users" class="section-icon"></i>
+                        <div>
+                            <h1>User Management</h1>
+                            <p>View, edit, and manage all platform members</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Credits</th>
+                                <th>Role</th>
+                                <th>Joined</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section class="content-section" id="section-products">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i data-lucide="package" class="section-icon"></i>
+                        <div>
+                            <h1>Subscription Packages</h1>
+                            <p>Add, edit, or remove subscription plans</p>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" id="addProductBtn">
+                            <i data-lucide="plus"></i>
+                            Add New Plan
+                        </button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Icon</th>
+                                <th>Package Name</th>
+                                <th>Price/mo</th>
+                                <th>Slots</th>
+                                <th>Credentials</th>
+                                <th>Type</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Credentials Section -->
+            <section class="content-section" id="section-keys">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i data-lucide="key-round" class="section-icon"></i>
+                        <div>
+                            <h1>Account Credentials</h1>
+                            <p>Manage shared account credentials and slot availability</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="keys-container">
+                    <div class="product-select-card">
+                        <div class="select-header">
+                            <i data-lucide="box-select" class="select-icon"></i>
+                            <h3>Select Subscription Package</h3>
+                        </div>
+                        <select id="keyProductSelect" class="form-control">
+                            <option value="">-- Select a package --</option>
+                        </select>
+                    </div>
+
+                    <div class="keys-panel hidden" id="keysPanel">
+                        <div class="keys-info">
+                            <div class="keys-product-info">
+                                <h3 id="keyProductName">Package</h3>
+                                <div class="key-type-badge" id="keyTypeBadge">
+                                    <i data-lucide="key"></i>
+                                    <span id="keyTypeText">Credentials</span>
+                                </div>
+                            </div>
+                            <div class="keys-stats">
+                                <div class="keys-stat available">
+                                    <i data-lucide="check-circle"></i>
+                                    <strong id="keyAvailable">0</strong>
+                                    <span>Available Slots</span>
+                                </div>
+                                <div class="keys-stat total">
+                                    <i data-lucide="database"></i>
+                                    <strong id="keyTotal">0</strong>
+                                    <span>Total Added</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="keys-actions">
+                            <div class="add-key-single">
+                                <div class="action-header">
+                                    <i data-lucide="plus-circle"></i>
+                                    <h4>Add Single Credential</h4>
+                                </div>
+                                <div class="input-group" id="singleKeyInputGroup">
+                                    <input type="text" id="singleKeyInput" placeholder="e.g. email:password or account details">
+                                    <button class="btn btn-primary" id="addSingleKeyBtn">
+                                        <i data-lucide="plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="add-key-bulk">
+                                <div class="action-header">
+                                    <i data-lucide="file-plus-2"></i>
+                                    <h4>Add Multiple Credentials</h4>
+                                </div>
+                                <div class="format-hint" id="formatHint">
+                                    <i data-lucide="info"></i>
+                                    <span>1 line = 1 credential slot</span>
+                                </div>
+                                <textarea id="bulkKeysInput" rows="5" placeholder="Enter one credential per line&#10;e.g.&#10;user1@email.com:password123&#10;user2@email.com:password456"></textarea>
+                                <button class="btn btn-primary btn-full" id="addBulkKeysBtn">
+                                    <i data-lucide="upload"></i>
+                                    Add All Credentials
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="keys-list">
+                            <div class="list-header">
+                                <i data-lucide="list"></i>
+                                <h4>All Credential Slots</h4>
+                            </div>
+                            <div class="keys-table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Credential Data</th>
+                                            <th>Status</th>
+                                            <th>Assigned To</th>
+                                            <th>Added On</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="keysTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section class="content-section" id="section-orders">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i data-lucide="shopping-cart" class="section-icon"></i>
+                        <div>
+                            <h1>Subscription Orders</h1>
+                            <p>All active and completed subscription records</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Member</th>
+                                <th>Plan</th>
+                                <th>Qty</th>
+                                <th>Total</th>
+                                <th>Credentials Sent</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Revenue / Transactions Section -->
+            <section class="content-section" id="section-transactions">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i data-lucide="trending-up" class="section-icon"></i>
+                        <div>
+                            <h1>Revenue & Sales</h1>
+                            <p>All subscription purchase transactions</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Member</th>
+                                <th>Plan</th>
+                                <th>Credentials</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Payment History Section -->
+            <section class="content-section" id="section-topup-history">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i data-lucide="credit-card" class="section-icon"></i>
+                        <div>
+                            <h1>Payment History</h1>
+                            <p>All credit top-up records from members</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Member</th>
+                                <th>Method</th>
+                                <th>Amount</th>
+                                <th>Description</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="topupHistoryTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Issue Reports Section -->
+            <section class="content-section" id="section-issues">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i data-lucide="alert-circle" class="section-icon"></i>
+                        <div>
+                            <h1>Issue Reports</h1>
+                            <p>Review and respond to member-reported subscription issues</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Member</th>
+                                <th>Subscription</th>
+                                <th>Subject</th>
+                                <th>Status</th>
+                                <th>Submitted</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="issuesTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Announcements Section -->
+            <section class="content-section" id="section-news">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i data-lucide="newspaper" class="section-icon"></i>
+                        <div>
+                            <h1>Announcements</h1>
+                            <p>Platform news and updates for members</p>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" id="addNewsBtn">
+                            <i data-lucide="plus"></i>
+                            New Announcement
+                        </button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="newsTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Promotions Section -->
+            <section class="content-section" id="section-activities">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i data-lucide="activity" class="section-icon"></i>
+                        <div>
+                            <h1>Promotions & Activities</h1>
+                            <p>Manage platform promotions and member activities</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Key</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Label</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activitiesTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Platform Settings Section -->
+            <section class="content-section" id="section-decoration">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i data-lucide="settings" class="section-icon"></i>
+                        <div>
+                            <h1>Platform Settings</h1>
+                            <p>Configure branding, colors, and site content</p>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" id="saveDecorationBtn">
+                            <i data-lucide="save"></i>
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+
+                <form id="decorationForm">
+                    <div class="keys-container">
+                        <!-- General Settings -->
+                        <div class="product-select-card">
+                            <div class="select-header">
+                                <i data-lucide="settings" class="select-icon"></i>
+                                <h3>General Information</h3>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Site Title</label>
+                                    <input type="text" id="setting_site_title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Brand Name</label>
+                                    <input type="text" id="setting_brand_name" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Meta Description</label>
+                                <textarea id="setting_site_description" rows="2"></textarea>
+                            </div>
+
+                            <div class="divider"></div>
+                            <h4>Contact Information</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Support Email</label>
+                                    <input type="text" id="setting_contact_email">
+                                </div>
+                                <div class="form-group">
+                                    <label>Facebook / Chat Handle</label>
+                                    <input type="text" id="setting_contact_facebook">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Theme Colors -->
+                        <div class="product-select-card">
+                            <div class="select-header">
+                                <i data-lucide="paint-bucket" class="select-icon"></i>
+                                <h3>Theme Colors</h3>
+                            </div>
+
+                            <div class="theme-presets-container">
+                                <label>Quick Theme Presets</label>
+                                <div class="theme-presets">
+                                    <button type="button" class="preset-btn" data-theme="dark-blue" style="background: linear-gradient(135deg, #2563eb, #06b6d4);">
+                                        <span>SubShare Blue</span>
+                                    </button>
+                                    <button type="button" class="preset-btn" data-theme="neon-blue" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">
+                                        <span>Neon Blue</span>
+                                    </button>
+                                    <button type="button" class="preset-btn" data-theme="purple-haze" style="background: linear-gradient(135deg, #8b5cf6, #d946ef);">
+                                        <span>Purple Haze</span>
+                                    </button>
+                                    <button type="button" class="preset-btn" data-theme="emerald-green" style="background: linear-gradient(135deg, #10b981, #34d399);">
+                                        <span>Emerald</span>
+                                    </button>
+                                    <button type="button" class="preset-btn" data-theme="midnight-red" style="background: linear-gradient(135deg, #ef4444, #b91c1c);">
+                                        <span>Deep Red</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Primary Color</label>
+                                    <div class="input-group">
+                                        <input type="color" id="setting_theme_color_primary_picker" class="color-picker">
+                                        <input type="text" id="setting_theme_color_primary" class="color-input">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Secondary / Hover Color</label>
+                                    <div class="input-group">
+                                        <input type="color" id="setting_theme_color_secondary_picker" class="color-picker">
+                                        <input type="text" id="setting_theme_color_secondary" class="color-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Image Settings -->
+                        <div class="product-select-card">
+                            <div class="select-header">
+                                <i data-lucide="image" class="select-icon"></i>
+                                <h3>Platform Images</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Logo Image</label>
+                                <div class="image-upload-card">
+                                    <div class="preview-area">
+                                        <img id="preview_logo_url" src="assets/logo.png" alt="Logo Preview">
+                                    </div>
+                                    <div class="upload-controls">
+                                        <input type="text" id="setting_logo_url" readonly placeholder="Image URL">
+                                        <div class="file-upload-wrapper">
+                                            <input type="file" id="upload_logo_url" accept="image/*" class="hidden-file-input">
+                                            <label for="upload_logo_url" class="btn btn-outline-primary">
+                                                <i data-lucide="file"></i> Choose File
+                                            </label>
+                                            <button type="button" class="btn btn-primary btn-upload" data-target="logo_url">
+                                                <i data-lucide="upload-cloud"></i> Upload
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Hero Background Image</label>
+                                <div class="image-upload-card">
+                                    <div class="preview-area">
+                                        <img id="preview_hero_bg_url" src="assets/hero-bg.jpg" alt="Hero Background">
+                                    </div>
+                                    <div class="upload-controls">
+                                        <input type="text" id="setting_hero_bg_url" readonly placeholder="Image URL">
+                                        <div class="file-upload-wrapper">
+                                            <input type="file" id="upload_hero_bg_url" accept="image/*" class="hidden-file-input">
+                                            <label for="upload_hero_bg_url" class="btn btn-outline-primary">
+                                                <i data-lucide="file"></i> Choose File
+                                            </label>
+                                            <button type="button" class="btn btn-primary btn-upload" data-target="hero_bg_url">
+                                                <i data-lucide="upload-cloud"></i> Upload
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <!-- ==================== MODALS ==================== -->
+
+    <!-- Add / Edit Product Modal -->
+    <div class="modal-overlay hidden" id="productModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="productModalTitle">Add Subscription Package</h2>
+                <button class="modal-close" id="closeProductModal" data-close>&times;</button>
+            </div>
+            <form id="productForm" style="display: flex; flex-direction: column; height: 100%; max-height: 100%; overflow: hidden;">
+                <div class="modal-body">
+                    <input type="hidden" id="productId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productTitle">Package Title *</label>
+                            <input type="text" id="productTitle" placeholder="e.g. Netflix Premium" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productSubtitle">Subtitle</label>
+                            <input type="text" id="productSubtitle" placeholder="e.g. 4K · 4 Profiles · 1 Month">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="productName">Display Name *</label>
+                        <input type="text" id="productName" placeholder="e.g. Netflix Premium Family" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productDescription">Description</label>
+                        <textarea id="productDescription" rows="3" placeholder="Describe what the subscriber gets..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productPrice">Price (THB/mo) *</label>
+                            <input type="number" id="productPrice" placeholder="150" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productStock">Slot Count</label>
+                            <input type="number" id="productStock" placeholder="0" min="0">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productCategory">Category</label>
+                            <select id="productCategory">
+                                <option value="streaming">Streaming</option>
+                                <option value="music">Music</option>
+                                <option value="productivity">Productivity</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="productKeyType">Delivery Type</label>
+                            <select id="productKeyType">
+                                <option value="credentials">Shared Credentials</option>
+                                <option value="email_invite">Email Invite (Family Plan)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="productBadge">Badge Label</label>
+                        <input type="text" id="productBadge" placeholder="e.g. Popular, Best Value, New">
+                    </div>
+                    <div class="form-group">
+                        <label>Package Image</label>
+                        <div class="image-upload-card">
+                            <div class="preview-area" id="productImagePreviewWrap">
+                                <img id="productImagePreview" src="" alt="Preview" style="display:none;">
+                            </div>
+                            <div class="upload-controls">
+                                <input type="text" id="productImagePath" readonly placeholder="Image URL">
+                                <div class="file-upload-wrapper">
+                                    <input type="file" id="productImageFile" accept="image/*" class="hidden-file-input">
+                                    <label for="productImageFile" class="btn btn-outline-primary">
+                                        <i data-lucide="file"></i> Choose File
+                                    </label>
+                                    <button type="button" class="btn btn-primary" id="uploadProductImageBtn">
+                                        <i data-lucide="upload-cloud"></i> Upload
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-ghost" id="cancelProductModal" data-close>Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Package</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div class="modal-overlay hidden" id="userModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Edit Member</h2>
+                <button class="modal-close" id="closeUserModal" data-close>&times;</button>
+            </div>
+            <form id="userForm" style="display: flex; flex-direction: column; height: 100%; max-height: 100%; overflow: hidden;">
+                <div class="modal-body">
+                    <input type="hidden" id="userId">
+                    <div class="form-group">
+                        <label for="userName">Full Name</label>
+                        <input type="text" id="userName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userEmail">Email</label>
+                        <input type="email" id="userEmail" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="userRole">Role</label>
+                            <select id="userRole">
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="userBalance">Credits Balance</label>
+                            <input type="number" id="userBalance" min="0" step="0.01">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-ghost" id="cancelUserModal" data-close>Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Credits to User Modal -->
+    <div class="modal-overlay hidden" id="addBalanceModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Add Credits to Member</h2>
+                <button class="modal-close" id="closeAddBalanceModal" data-close>&times;</button>
+            </div>
+            <form id="addBalanceForm" class="modal-body">
+                <input type="hidden" id="balanceUserId">
+                <div class="form-group">
+                    <label>Member: <strong id="balanceUserName"></strong></label>
+                </div>
+                <div class="form-group">
+                    <label for="addBalanceAmount">Amount to Add (THB)</label>
+                    <input type="number" id="addBalanceAmount" min="0.01" step="0.01" placeholder="100.00" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-ghost" id="cancelAddBalanceModal" data-close>Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Credits</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Issue Response Modal -->
+    <div class="modal-overlay hidden" id="issueModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Respond to Issue Report</h2>
+                <button class="modal-close" id="closeIssueModal">&times;</button>
+            </div>
+            <div class="modal-body" id="issueModalBody">
+                <!-- Populated by JS -->
+            </div>
+            <form id="issueResponseForm">
+                <input type="hidden" id="issueResponseId">
+                <div class="modal-body" style="padding-top:0;">
+                    <div class="form-group">
+                        <label for="issueResponseStatus">Update Status</label>
+                        <select id="issueResponseStatus">
+                            <option value="open">Open</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="resolved">Resolved</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="issueResponseReply">Admin Reply</label>
+                        <textarea id="issueResponseReply" rows="4" placeholder="Write your response to the member..."></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-ghost" id="cancelIssueModal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Send Response</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add News Modal -->
+    <div class="modal-overlay hidden" id="newsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="newsModalTitle">New Announcement</h2>
+                <button class="modal-close" id="closeNewsModal">&times;</button>
+            </div>
+            <form id="newsForm" class="modal-body">
+                <input type="hidden" id="newsId">
+                <div class="form-group">
+                    <label for="newsTitle">Title</label>
+                    <input type="text" id="newsTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="newsContent">Content</label>
+                    <textarea id="newsContent" rows="5"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="newsCategory">Category</label>
+                        <select id="newsCategory">
+                            <option value="general">General</option>
+                            <option value="promotion">Promotion</option>
+                            <option value="update">Platform Update</option>
+                            <option value="maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="newsStatus">Status</label>
+                        <select id="newsStatus">
+                            <option value="1">Published</option>
+                            <option value="0">Draft</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-ghost" id="cancelNewsModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Publish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin.js?v=2"></script>
+</body>
+
+</html>

@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SubShare - Subscription Sharing Platform</title>
+
+    <meta name="description"
+        content="Share premium subscriptions — Netflix, Spotify, YouTube, and more. Save up to 80% with group plans on SubShare.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" data-page="home">
+                <span class="logo-text">Sub<span class="logo-accent">Share</span></span>
+            </a>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="shop">Browse Plans</a></li>
+                <li><a href="#" class="nav-link" data-page="topup">Add Credits</a></li>
+
+                <li><a href="#" class="nav-link" data-page="news">Announcements</a></li>
+                <li><a href="#" class="nav-link" data-page="contact">Support</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <div class="nav-auth" id="navAuth">
+                    <a href="#" class="auth-link" id="loginBtn">Sign In</a>
+                    <a href="#" class="btn btn-register" id="registerBtn">Get Started</a>
+                </div>
+
+                <div class="action-btn-group hidden" id="inboxGroup">
+                    <a href="#" class="nav-icon-btn nav-bell-btn" id="inboxBtn" title="My Subscriptions">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                        <span class="nav-bell-dot hidden" id="inboxBadge"></span>
+                    </a>
+                </div>
+
+                <div class="user-profile hidden" id="userProfile">
+                    <div class="profile-trigger" id="profileTrigger">
+                        <div class="profile-avatar">
+                            <span id="userAvatar">U</span>
+                        </div>
+                        <span class="profile-name" id="userName">User</span>
+                        <svg class="profile-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </div>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="dropdown-header">
+                            <div class="user-balance">
+                                <span>Available Credits</span>
+                                <span class="amount" id="userBalanceDisplay">฿0.00</span>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a href="/admin" class="dropdown-item" id="adminPanelBtn" style="display: none;">
+                            <span class="dropdown-icon">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+                            </span>
+                            Admin Dashboard
+                        </a>
+                        <a href="#" class="dropdown-item" id="historyBtn">
+                            <span class="dropdown-icon">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14 2 14 8 20 8"/><path d="M20 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h12l6 6v10a2 2 0 0 1-2 2z"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+                            </span>
+                            Transaction History
+                        </a>
+                        <a href="#" class="dropdown-item" id="logoutBtn">
+                            <span class="dropdown-icon">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                            </span>
+                            Sign Out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- ============================================
+         PAGE: HOME
+         ============================================ -->
+    <div class="page-section active" id="page-home">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-content">
+                <div class="hero-text">
+
+                    <h1 class="hero-title" id="heroTitle">Share Premium Subscriptions &<br>Save Up to <span
+                            class="hero-highlight">80%</span></h1>
+                    <p class="hero-description" id="heroDescription">
+                        Get Netflix, Spotify, YouTube Premium, Disney+, and more — shared securely with group plans.
+                        Professional credential management with instant delivery.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#" class="btn btn-cta" data-page="shop">
+                            Browse Plans
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
+
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-cards">
+                        <div class="hero-sub-card card-netflix">
+                            <div class="sub-card-icon sub-card-letter" style="background:linear-gradient(135deg,#7b2d8b,#5a2069)">H</div>
+                            <div class="sub-card-info">
+                                <span class="sub-card-name">HBO Max</span>
+                                <span class="sub-card-slots">3 slots available</span>
+                            </div>
+                            <span class="sub-card-price">฿99</span>
+                        </div>
+                        <div class="hero-sub-card card-spotify">
+                            <div class="sub-card-icon sub-card-letter" style="background:linear-gradient(135deg,#1db954,#158a3e)">S</div>
+                            <div class="sub-card-info">
+                                <span class="sub-card-name">Spotify Premium</span>
+                                <span class="sub-card-slots">6 slots available</span>
+                            </div>
+                            <span class="sub-card-price">฿55</span>
+                        </div>
+                        <div class="hero-sub-card card-youtube">
+                            <div class="sub-card-icon sub-card-letter" style="background:linear-gradient(135deg,#ff0000,#cc0000)">Y</div>
+                            <div class="sub-card-info">
+                                <span class="sub-card-name">YouTube Premium</span>
+                                <span class="sub-card-slots">5 slots available</span>
+                            </div>
+                            <span class="sub-card-price">฿99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-count="2136">0</span>
+                    <span class="stat-label">Subscriptions Delivered</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="142">0</span>
+                    <span class="stat-label">Slots Available Now</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="1000">0</span>
+                    <span class="stat-label">Happy Members</span>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Categories Section -->
+        <section class="categories" id="categories">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">All Platforms</span>
+                    <h2 class="section-title">Subscription Categories</h2>
+                </div>
+                <div class="categories-grid">
+                    <a href="#" class="category-card streaming" data-page="shop" data-filter="streaming">
+                        <div class="category-overlay"></div>
+                        <div class="category-content">
+                            <span class="category-badge">STREAMING</span>
+                            <h3>Video & Streaming</h3>
+                            <h2>Netflix · Disney+ · HBO</h2>
+                            <span class="category-brand">SubShare</span>
+                        </div>
+                        <div class="category-icon-bg">🎬</div>
+                    </a>
+                    <a href="#" class="category-card music" data-page="shop" data-filter="music">
+                        <div class="category-overlay"></div>
+                        <div class="category-content">
+                            <span class="category-badge">MUSIC</span>
+                            <h3>Music & Podcasts</h3>
+                            <h2>Spotify · Apple Music</h2>
+                            <span class="category-brand">SubShare</span>
+                        </div>
+                        <div class="category-icon-bg">🎵</div>
+                    </a>
+                    <a href="#" class="category-card productivity" data-page="shop" data-filter="productivity">
+                        <div class="category-overlay"></div>
+                        <div class="category-content">
+                            <span class="category-badge">PRODUCTIVITY</span>
+                            <h3>Creative & Work Tools</h3>
+                            <h2>Canva · Office 365</h2>
+                            <span class="category-brand">SubShare</span>
+                        </div>
+                        <div class="category-icon-bg">🎨</div>
+                    </a>
+                    <a href="#" class="category-card youtube-cat" data-page="shop" data-filter="youtube">
+                        <div class="category-overlay"></div>
+                        <div class="category-content">
+                            <span class="category-badge">VIDEO</span>
+                            <h3>Video Platforms</h3>
+                            <h2>YouTube Premium</h2>
+                            <span class="category-brand">SubShare</span>
+                        </div>
+                        <div class="category-icon-bg">▶️</div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Subscriptions -->
+        <section class="products" id="products">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Most Popular</span>
+                    <h2 class="section-title">Featured Subscription Plans</h2>
+                </div>
+                <div class="products-grid" id="homeProductsGrid">
+                    <!-- Loaded by JavaScript -->
+                </div>
+                <div class="view-all-container">
+                    <a href="#" class="btn btn-view-all" data-page="shop">
+                        View All Plans
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trust Badges -->
+        <section class="trust-section">
+            <div class="container">
+                <div class="trust-grid">
+                    <div class="trust-item">
+                        <span class="trust-icon">🔒</span>
+                        <h4>Secure Credentials</h4>
+                        <p>Credentials are encrypted and only visible to authorized subscribers.</p>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">⚡</span>
+                        <h4>Instant Delivery</h4>
+                        <p>Access your subscription account details immediately after subscribing.</p>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">🛡️</span>
+                        <h4>Issue Protection</h4>
+                        <p>Report any access issues anytime and our team will respond quickly.</p>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">💰</span>
+                        <h4>Best Value</h4>
+                        <p>Save up to 80% compared to individual subscription pricing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Reviews Section -->
+        <section class="reviews-section">
+            <div class="section-header">
+                <span class="section-subtitle">reviews</span>
+                <h2 class="section-title">What Our Members Say</h2>
+            </div>
+            <div class="marquee-container">
+                <div class="marquee-content">
+                    <!-- First set of reviews -->
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>"Saving 80% on Netflix was a game changer for my budget!"</p>
+                        <div class="review-author">
+                            <div class="author-avatar">A</div>
+                            <span>Alex Johnson</span>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>"Instant delivery and the support team actually replies. Recommended!"</p>
+                        <div class="review-author">
+                            <div class="author-avatar">S</div>
+                            <span>Sarah Chen</span>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>"Best way to get YouTube Premium. Secure and easy to use."</p>
+                        <div class="review-author">
+                            <div class="author-avatar">D</div>
+                            <span>David Smith</span>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>"I've been using SubShare for 3 months now. No issues at all."</p>
+                        <div class="review-author">
+                            <div class="author-avatar">M</div>
+                            <span>Michael Brown</span>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>"Finally a platform that makes shared plans professional and safe."</p>
+                        <div class="review-author">
+                            <div class="author-avatar">E</div>
+                            <span>Elena Rodriguez</span>
+                        </div>
+                    </div>
+                    <!-- Duplicate set for infinite loop -->
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>"Saving 80% on Netflix was a game changer for my budget!"</p>
+                        <div class="review-author">
+                            <div class="author-avatar">A</div>
+                            <span>Alex Johnson</span>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>"Instant delivery and the support team actually replies. Recommended!"</p>
+                        <div class="review-author">
+                            <div class="author-avatar">S</div>
+                            <span>Sarah Chen</span>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>"Best way to get YouTube Premium. Secure and easy to use."</p>
+                        <div class="review-author">
+                            <div class="author-avatar">D</div>
+                            <span>David Smith</span>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>"I've been using SubShare for 3 months now. No issues at all."</p>
+                        <div class="review-author">
+                            <div class="author-avatar">M</div>
+                            <span>Michael Brown</span>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>"Finally a platform that makes shared plans professional and safe."</p>
+                        <div class="review-author">
+                            <div class="author-avatar">E</div>
+                            <span>Elena Rodriguez</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============================================
+         PAGE: ADD CREDITS
+         ============================================ -->
+    <div class="page-section" id="page-topup">
+        <section class="page-hero topup-hero">
+            <div class="page-hero-content">
+                <h1>💳 Add Credits</h1>
+                <p></p>
+            </div>
+        </section>
+
+        <section class="topup-section">
+            <div class="container">
+                <div class="topup-main-card">
+                    <div class="topup-balance-display">
+                        <div class="balance-icon">💰</div>
+                        <div class="balance-info">
+                            <span class="balance-label">Available Credits</span>
+                            <span class="balance-amount" id="pageTopupBalance">0.00</span>
+                            <span class="balance-currency">THB</span>
+                        </div>
+                    </div>
+
+                    <div class="topup-form-container" id="topupFormContainer">
+                        <div class="login-required-message" id="topupLoginRequired">
+                            <div class="login-icon">🔐</div>
+                            <h3>Sign In Required</h3>
+                            <p>Please sign in to add credits to your account</p>
+                            <button class="btn btn-cta" id="topupLoginBtn">Sign In</button>
+                        </div>
+
+                        <form id="pageTopupForm" class="topup-form hidden">
+                            <div class="form-group">
+                                <label>Select Amount</label>
+                                <div class="topup-amounts-grid">
+                                    <button type="button" class="topup-amount-btn" data-amount="5">฿5</button>
+                                    <button type="button" class="topup-amount-btn" data-amount="10">฿10</button>
+                                    <button type="button" class="topup-amount-btn" data-amount="25">฿25</button>
+                                    <button type="button" class="topup-amount-btn" data-amount="50">฿50</button>
+                                    <button type="button" class="topup-amount-btn" data-amount="100">฿100</button>
+                                    <button type="button" class="topup-amount-btn" data-amount="200">฿200</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="pageTopupAmount">Or enter a custom amount</label>
+                                <input type="number" id="pageTopupAmount" placeholder="Enter amount in THB" min="1"
+                                    max="100000">
+                            </div>
+                            <button type="submit" class="btn btn-submit btn-lg">Add Credits Now</button>
+                        </form>
+                    </div>
+
+                    <div class="topup-payment-methods">
+                        <h4>Accepted Payment Methods</h4>
+                        <div class="payment-icons">
+                            <div class="payment-icon">Bank Transfer</div>
+                            <div class="payment-icon">Credit Card</div>
+                            <div class="payment-icon">PayPal</div>
+                            <div class="payment-icon">PromptPay</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============================================
+            </div>
+        </section>
+    </div>
+
+    <!-- ============================================
+         PAGE: BROWSE PLANS (Shop)
+         ============================================ -->
+    <div class="page-section" id="page-shop">
+        <section class="page-hero shop-hero">
+            <div class="page-hero-content">
+                <h1> Browse Subscription Plans</h1>
+                <p></p>
+            </div>
+        </section>
+
+        <section class="shop-section">
+            <div class="container">
+                <!-- Search & Filter -->
+                <div class="shop-toolbar">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search subscription plans..." id="shopSearch">
+                        <button class="search-btn" aria-label="Search">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.35-4.35" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="filter-options">
+                        <select id="shopCategory">
+                            <option value="all">All Categories</option>
+                            <option value="streaming">Streaming</option>
+                            <option value="music">Music</option>
+                            <option value="productivity">Productivity</option>
+                        </select>
+                        <select id="shopSort">
+                            <option value="newest">Newest First</option>
+                            <option value="price-low">Price: Low → High</option>
+                            <option value="price-high">Price: High → Low</option>
+                            <option value="popular">Most Popular</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="products-grid" id="shopProductsGrid">
+                    <!-- Loaded by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============================================
+         PAGE: ANNOUNCEMENTS (News)
+         ============================================ -->
+    <div class="page-section" id="page-news">
+        <section class="page-hero news-hero">
+            <div class="page-hero-content">
+                <h1>Announcements</h1>
+                <p>Stay updated with the latest platform news and offers</p>
+            </div>
+        </section>
+
+        <section class="news-section">
+            <div class="container">
+                <div class="news-list" id="newsListContainer">
+                    <!-- Loaded by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============================================
+         PAGE: SUPPORT (Contact)
+         ============================================ -->
+    <div class="page-section" id="page-contact">
+        <section class="page-hero contact-hero">
+            <div class="page-hero-content">
+                <h1>Support</h1>
+                <p>We're here to help — 24/7 member support</p>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>Contact Channels</h3>
+                        <div class="contact-item">
+                            <div class="contact-icon">💬</div>
+                            <div class="contact-detail">
+                                <h4>Live Chat</h4>
+                                <p>@SubShare</p>
+                                <a href="#" class="contact-link">Start Chat</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📘</div>
+                            <div class="contact-detail">
+                                <h4>Facebook</h4>
+                                <p>SubShare Official</p>
+                                <a href="#" class="contact-link">Visit Page</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">💬</div>
+                            <div class="contact-detail">
+                                <h4>Discord Community</h4>
+                                <p>discord.gg/subshare</p>
+                                <a href="#" class="contact-link">Join Server</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div class="contact-detail">
+                                <h4>Email Support</h4>
+                                <p>support@subshare.app</p>
+                                <a href="mailto:support@subshare.app" class="contact-link">Send Email</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-card">
+                        <h3>Send Us a Message</h3>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group">
+                                <label for="contactName">Full Name</label>
+                                <input type="text" id="contactName" placeholder="Enter your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Email Address</label>
+                                <input type="email" id="contactEmail" placeholder="Enter your email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactSubject">Topic</label>
+                                <select id="contactSubject" required>
+                                    <option value="">Select a topic</option>
+                                    <option value="inquiry">General Inquiry</option>
+                                    <option value="problem">Report an Issue</option>
+                                    <option value="refund">Refund Request</option>
+                                    <option value="credentials">Credential Problem</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactMessage">Message</label>
+                                <textarea id="contactMessage" rows="5"
+                                    placeholder="Describe your issue or question in detail..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-submit">📤 Send Message</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- FAQ Section -->
+                <div class="faq-section">
+                    <h3>❓ Frequently Asked Questions</h3>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>How do I receive my subscription credentials?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>After subscribing, your credentials are delivered instantly to your account inbox (My
+                                    Subscriptions). You can view them securely from your dashboard at any time.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>Are the shared accounts safe to use?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes. Each credential is assigned exclusively to one subscriber per slot. We monitor
+                                    accounts for misuse and provide replacements if credentials stop working.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>What if my subscription stops working?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Report the issue immediately using the "Report an Issue" button in your account menu.
+                                    Our admin team will review and resolve or replace your subscription within 24 hours.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>Can I get a refund?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Refunds are available within 24 hours if the subscription credentials are
+                                    non-functional due to a platform issue. Contact our support team with your order ID.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============================================
+         AUTH MODAL (Sign In / Register)
+         ============================================ -->
+    <div class="modal-overlay hidden" id="authModal">
+        <div class="modal">
+            <button class="modal-close" id="closeModal">&times;</button>
+
+            <!-- Login Form -->
+            <div class="auth-form" id="loginForm">
+                <div class="modal-header">
+
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to access your subscriptions and dashboard</p>
+                </div>
+                <form id="loginFormElement">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <div class="password-input">
+                            <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                            <button type="button" class="toggle-password"
+                                onclick="togglePassword('loginPassword')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="rememberMe">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-submit">Sign In</button>
+                </form>
+                <div class="auth-switch">
+                    <span>Don't have an account?</span>
+                    <a href="#" id="switchToRegister">Create Account</a>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div class="auth-form hidden" id="registerForm">
+                <div class="modal-header">
+
+                    <h2>Create Account</h2>
+                    <p>Join SubShare and start saving on premium subscriptions</p>
+                </div>
+                <form id="registerFormElement">
+                    <div class="form-group">
+                        <label for="registerName">Full Name</label>
+                        <input type="text" id="registerName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email Address</label>
+                        <input type="email" id="registerEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <div class="password-input">
+                            <input type="password" id="registerPassword" placeholder="Minimum 6 characters" required
+                                minlength="6">
+                            <button type="button" class="toggle-password"
+                                onclick="togglePassword('registerPassword')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <div class="password-input">
+                            <input type="password" id="confirmPassword" placeholder="Re-enter your password" required>
+                            <button type="button" class="toggle-password"
+                                onclick="togglePassword('confirmPassword')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <label class="checkbox-label terms">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+                    </label>
+                    <button type="submit" class="btn btn-submit">Create Account</button>
+                </form>
+                <div class="auth-switch">
+                    <span>Already have an account?</span>
+                    <a href="#" id="switchToLogin">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         MY SUBSCRIPTIONS MODAL (Inbox)
+         ============================================ -->
+    <div class="modal-overlay hidden" id="inboxModal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h3>📦 My Subscriptions</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="inbox-container">
+                    <div class="inbox-list" id="inboxList">
+                        <!-- Items populated by JS -->
+                    </div>
+                    <div class="inbox-message hidden" id="inboxMessage">
+                        <button class="btn-back" id="backToInboxBtn">
+                            ← Back to List
+                        </button>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <img src="" alt="" id="msgProductImg" class="msg-img">
+                                <div>
+                                    <h4 id="msgProductName">Subscription Name</h4>
+                                    <span class="msg-date" id="msgDate">Date</span>
+                                </div>
+                            </div>
+                            <div class="message-body">
+                                <label>Account Credentials:</label>
+                                <div class="key-box">
+                                    <code id="msgKeyData">...</code>
+                                    <button class="btn-copy" id="msgCopyBtn"
+                                        onclick="copyToClipboard(document.getElementById('msgKeyData').innerText)">
+                                        Copy
+                                    </button>
+                                </div>
+                                <div class="instruction-box mt-4">
+                                    <h5>🔐 Security Notice:</h5>
+                                    <p>Keep these credentials private. Do not share them with anyone. If you experience
+                                        any issues, use the "Report an Issue" button in your account menu.</p>
+                                </div>
+                                <div class="report-issue-box">
+                                    <button class="btn btn-report" id="reportIssueFromInboxBtn">🚨 Report a
+                                        Problem</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         REPORT ISSUE MODAL
+         ============================================ -->
+    <div class="modal-overlay hidden" id="reportIssueModal">
+        <div class="modal">
+            <button class="modal-close" id="closeReportIssueModal">&times;</button>
+            <div class="modal-header">
+                <h2>🚨 Report an Issue</h2>
+                <p>Describe the problem and our team will respond within 24 hours</p>
+            </div>
+            <form id="reportIssueForm">
+                <input type="hidden" id="reportOrderId">
+                <div class="form-group">
+                    <label for="reportSubject">Issue Type</label>
+                    <select id="reportSubject" required>
+                        <option value="">Select issue type</option>
+                        <option value="Credentials not working">Credentials not working</option>
+                        <option value="Account locked / banned">Account locked / banned</option>
+                        <option value="Wrong subscription delivered">Wrong subscription delivered</option>
+                        <option value="Cannot access content">Cannot access content</option>
+                        <option value="Billing / credits issue">Billing / credits issue</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reportMessage">Details</label>
+                    <textarea id="reportMessage" rows="4" placeholder="Please describe the issue in detail..."
+                        required></textarea>
+                </div>
+                <button type="submit" class="btn btn-submit">Submit Report</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================
+         MY ISSUES MODAL
+         ============================================ -->
+    <div class="modal-overlay hidden" id="myIssuesModal">
+        <div class="modal modal-lg">
+            <button class="modal-close" id="closeMyIssuesModal">&times;</button>
+            <div class="modal-header">
+                <h2>📋 My Issue Reports</h2>
+            </div>
+            <div class="history-list" id="myIssuesList">
+                <div class="loading">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo-wrap">
+                        <span class="footer-brand-name">SubShare</span>
+                    </div>
+                    <p>Premium subscription sharing made simple, secure, and affordable.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Platform</h4>
+                    <a href="#" data-page="home">Home</a>
+                    <a href="#" data-page="shop">Browse Plans</a>
+                    <a href="#" data-page="news">Announcements</a>
+                    <a href="#" data-page="contact">Support</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p>📧 support@subshare.app</p>
+                    <p>💬 @SubShare</p>
+                    <p>🌐 subshare.app</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 SubShare. All rights reserved. · Academic Project</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         ADD CREDITS MODAL
+         ============================================ -->
+    <div class="modal-overlay hidden" id="topupModal">
+        <div class="modal">
+            <button class="modal-close" id="closeTopupModal">&times;</button>
+            <div class="modal-header">
+                <h2>💳 Add Credits</h2>
+                <p>Load credits into your SubShare wallet</p>
+            </div>
+            <form id="topupForm">
+                <div class="form-group">
+                    <label>Current Balance</label>
+                    <div class="current-balance"><span id="topupCurrentBalance">0.00</span> THB</div>
+                </div>
+                <div class="form-group">
+                    <label for="topupAmount">Amount to Add (THB)</label>
+                    <input type="number" id="topupAmount" placeholder="Enter amount" min="1" max="100000" step="1"
+                        required>
+                </div>
+                <div class="quick-amounts">
+                    <button type="button" class="quick-amount" data-amount="5">฿5</button>
+                    <button type="button" class="quick-amount" data-amount="10">฿10</button>
+                    <button type="button" class="quick-amount" data-amount="25">฿25</button>
+                    <button type="button" class="quick-amount" data-amount="50">฿50</button>
+                </div>
+                <button type="submit" class="btn btn-submit">Add Credits</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================
+         TRANSACTION HISTORY MODAL
+         ============================================ -->
+    <div class="modal-overlay hidden" id="historyModal">
+        <div class="modal modal-lg">
+            <button class="modal-close" id="closeHistoryModal">&times;</button>
+            <div class="modal-header">
+                <h2>📋 Transaction History</h2>
+            </div>
+            <div class="history-list" id="historyList">
+                <div class="loading">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="purchaseModal">
+        <div class="modal modal-purchase">
+            <button class="modal-close" id="closePurchaseModal">&times;</button>
+            <div class="purchase-modal-header">
+                <div>
+                    <span class="purchase-modal-label">Subscription</span>
+                    <h2>Subscribe to Plan</h2>
+                </div>
+            </div>
+            <div id="purchaseModalContent">
+                <div class="purchase-product-info" id="purchaseProductInfo">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="purchase-options">
+                    <div class="purchase-option-tabs">
+                        <button class="option-tab active" id="tabCredentials" onclick="switchPurchaseTab('credentials')">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                            Get Credentials
+                        </button>
+                        <button class="option-tab" id="tabEmailInvite" onclick="switchPurchaseTab('email_invite')">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                            Join Family Plan
+                        </button>
+                    </div>
+                    <div class="option-panel" id="panelCredentials">
+                        <p class="option-desc">You will receive shared account login credentials immediately after subscribing.</p>
+                    </div>
+                    <div class="option-panel hidden" id="panelEmailInvite">
+                        <p class="option-desc">Provide your email to be invited to the family/group plan directly.</p>
+                        <div class="form-group">
+                            <label for="inviteEmail">Your Email for Invite</label>
+                            <input type="email" id="inviteEmail" placeholder="your@email.com">
+                        </div>
+                    </div>
+                </div>
+                <div class="purchase-summary">
+                    <div class="summary-row">
+                        <span>Plan Price:</span>
+                        <span id="purchasePriceDisplay">฿0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Your Credits:</span>
+                        <span id="purchaseBalanceDisplay">฿0.00</span>
+                    </div>
+                </div>
+                <div class="purchase-modal-actions">
+                    <button class="btn btn-submit btn-lg" id="confirmPurchaseBtn">Subscribe Now</button>
+                    <p class="purchase-note">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:4px;">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                        </svg>
+                        Access delivered instantly after confirmation
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         PRODUCT DETAIL MODAL
+         ============================================ -->
+    <div class="modal-overlay hidden" id="productDetailModal">
+        <div class="modal modal-lg">
+            <button class="modal-close" id="closeProductDetailModal">&times;</button>
+            <div class="product-detail-content" id="productDetailContent">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

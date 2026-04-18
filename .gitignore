@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment Variables
+.env
+
+# Database and Logs
+*.db
+*.sqlite
+*.log
+out.log
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# User Uploads
+uploads/
+assets/news-*
+assets/upload-*
+
+# Development
+.vscode/
+.idea/
