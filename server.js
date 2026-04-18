@@ -49,7 +49,7 @@ app.use((req, res, next) => {
 });
 
 // Static files
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Create uploads directory if not exists
@@ -71,17 +71,17 @@ app.use('/api/issues', issueRoutes);
 
 // Serve index.html for root
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Serve admin.html
 app.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname, 'admin.html'));
+    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
 // Serve inbox.html
 app.get('/inbox', (req, res) => {
-    res.sendFile(path.join(__dirname, 'inbox.html'));
+    res.sendFile(path.join(__dirname, 'public', 'inbox.html'));
 });
 
 // Error handling middleware
